@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 960" fill="none">
+  <rect width="800" height="960" fill="#e8e9e1"/>
+  <circle cx="400" cy="420" r="184" fill="#dce2d6"/>
+  <path d="M400 568c-86-67-131-131-131-192 0-52 34-88 79-88 24 0 42 12 52 31 10-19 28-31 52-31 45 0 79 36 79 88 0 61-45 125-131 192Z" fill="#58715d"/>
+  <path d="M400 503c-1-57 16-102 61-141" stroke="#e8e9e1" stroke-linecap="round" stroke-width="13"/>
+  <text x="400" y="728" fill="#39493c" font-family="Georgia,serif" font-size="38" text-anchor="middle">A good find</text>
+  <text x="400" y="770" fill="#777d72" font-family="Arial,sans-serif" font-size="17" letter-spacing="3" text-anchor="middle">CLOSER TO HOME</text>
+</svg>
