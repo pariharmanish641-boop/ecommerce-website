@@ -1,10 +1,11 @@
 "use client";
+
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check, Minus, Plus, ShoppingBag, Star, Truck } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import ProductImage from "@/app/components/ProductImage";
 import { useCart } from "@/app/components/CartProvider";
 
@@ -29,7 +30,7 @@ const money = (amount: number) =>
     maximumFractionDigits: 0,
   }).format(amount);
 
-export default function ProductDetailPage() {
+function ProductDetailContent() {
   const params = useParams<{ id: string }>();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
@@ -37,11 +38,14 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
+  const productId = params?.id;
+
   useEffect(() => {
+    if (!productId) return;
     const controller = new AbortController();
     async function loadProduct() {
       try {
-        const response = await fetch(`/api/products/${encodeURIComponent(params.id)}`, {
+        const response = await fetch(`/api/products/${encodeURIComponent(productId)}`, {
           signal: controller.signal,
           cache: "no-store",
         });
@@ -62,7 +66,7 @@ export default function ProductDetailPage() {
     }
     void loadProduct();
     return () => controller.abort();
-  }, [params.id]);
+  }, [productId]);
 
   if (error) {
     return (
@@ -198,5 +202,19 @@ export default function ProductDetailPage() {
         </section>
       </div>
     </main>
+  );
+}
+
+export default function ProductDetailPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="product-detail-shell">
+          <div className="product-detail-skeleton" aria-label="Loading product" />
+        </main>
+      }
+    >
+      <ProductDetailContent />
+    </Suspense>
   );
 }
