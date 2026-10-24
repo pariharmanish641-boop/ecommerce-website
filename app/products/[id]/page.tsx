@@ -1,6 +1,6 @@
 "use client";
 
-
+import { Suspense } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft, ArrowRight, Check, Minus, Plus, ShoppingBag, Star, Truck } from "lucide-react";
