@@ -30,6 +30,20 @@ const money = (amount: number) =>
   }).format(amount);
 
 export default function ProductDetailPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="product-detail-shell">
+          <div className="product-detail-skeleton" aria-label="Loading product" />
+        </main>
+      }
+    >
+      <ProductDetailContent />
+    </Suspense>
+  );
+}
+
+function ProductDetailContent() {
   const params = useParams<{ id: string }>();
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
